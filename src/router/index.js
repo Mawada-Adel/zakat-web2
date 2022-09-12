@@ -10,7 +10,8 @@ import Pays from "@/components/Pays";
 import EmplloyeeServises from "@/components/EmplloyeeServises";
 import allEmpl from "@/components/allEmpl";
 import addempl from "@/components/addempl";
-import Logo from "@/components/logo";
+import addedBy from "@/components/added-by";
+
 
 const routes = [
   {
@@ -18,7 +19,6 @@ const routes = [
     name: 'home',
     component: homePage
   },
-  
   {
     path: '/addempl',
     name: 'addempl',
@@ -28,6 +28,11 @@ const routes = [
     path: '/employee',
     name: 'employee',
     component: EmplloyeeServises
+  },
+  {
+    path : '/added-by',
+    name : 'addedBy' ,
+    component : addedBy
   },
   {
     path: '/allemple',
@@ -41,11 +46,6 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: deserversService
-  },
-  {
-    path: '/logo',
-    name : 'logo' ,
-    component: Logo
   },
   {
     path: '/d-table',

@@ -8,6 +8,7 @@
       <th scope="col">اسم المسؤول</th>
       <th scope="col">العنوان</th>
       <th scope="col">رقم الهاتف</th>
+      <th scope="col"> التحكم</th>
     </tr>
     </thead>
     <tbody>
@@ -16,7 +17,11 @@
       <td>{{ emb.username }}</td>
       <td>{{emb.address}}</td>
       <td>{{emb.phoneNumber}}</td>
-      
+      <td>
+        <button class="btn btn-primary " @click="pushToEdit(emb)">edit</button>
+        <button class="btn btn-danger " @click="deleteEmployee(emb.id)" style="margin-right : 5px">delete</button>
+        <button class="btn btn-primary " @click="fetchAddedBy(emb.id , emb.username)" style="margin-right : 5px">log</button>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -38,6 +43,9 @@ export default {
     }
   },
   methods : {
+    fetchAddedBy(id , name) {
+     this.$router.push({name : 'addedBy' , params : {id : id , name : name}});
+    },
     fetchemployees() {
       axios.get(`http://localhost:5050/admin/fetch-all-employees?type=0`)
           .then(response => {
@@ -52,8 +60,20 @@ export default {
         this.fetchDeservers();
       })
 
+    },
+    pushToEdit(employee) {
+      console.log('employee ' , employee);
+        this.$router.push({name : 'addempl' , params : {id : employee.id}});
+    },
+    deleteEmployee(id) {
+      console.log('id is : ' , id);
+      axios.delete(`http://localhost:5050/employee/delete/${id}`)
+        .then(res => {
+          console.log(res);
+          this.fetchemployees();
+        })
     }
-  },
+  },  
   created() {
     this.fetchemployees();
   }

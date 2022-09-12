@@ -1,6 +1,13 @@
 <template>
 <div>
   <nav-component style="margin-bottom: 200px"></nav-component>
+  <br>
+  <input v-model="areaName" @keyup.enter="filterByAreas()" style="margin-right : 10px" type="text" placeholder="إختر المنطقة" list="areas-list">
+  <datalist id="areas-list">
+    <option v-for="area in areas" :key="area" :value="area.address" ></option>
+  
+ 
+</datalist>
   <table class="table container" style="width: 1200px">
     <thead>
     <tr>
@@ -51,10 +58,27 @@ export default {
   },
   data () {
     return {
-      deservers : []
+      deservers : [],
+      areas : [] ,
+      areaName : ''
     }
   },
   methods : {
+    filterByAreas() {
+      console.log('the address is ' , this.areaName);
+      axios.get(`http://localhost:5050/deservers/filter-by-areas/${this.areaName}`)
+        .then(res => {
+          if (res.data.status == 'success') {
+            this.deservers = res.data.response;
+          }
+        })
+    },
+    fetchAreas() {
+      axios.get(`http://localhost:5050/deservers/fetchAreas`)
+        .then(res => {
+            this.areas = res.data.response;
+        });
+    },
     fetchDeservers() {
       axios.get(`http://localhost:5050/admin/fetch-all-deservers?type=0`)
           .then(response => {
@@ -73,6 +97,7 @@ export default {
   },
   created() {
     this.fetchDeservers();
+    this.fetchAreas();
   }
 }
 </script>
