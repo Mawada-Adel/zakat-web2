@@ -1,0 +1,10 @@
+/*!
+* flexibleArea.js v1.3
+* A jQuery plugin that dynamically updates textarea's height to fit the content.
+* http://flaviusmatis.github.com/flexibleArea.js/
+*
+* Copyright 2012, Flavius Matis
+* Released under the MIT license.
+* http://flaviusmatis.github.com/license.html
+*/
+(function(n){var t={init:function(){var t=["paddingTop","paddingRight","paddingBottom","paddingLeft","fontSize","lineHeight","fontFamily","width","fontWeight","border-top-width","border-right-width","border-bottom-width","border-left-width","-moz-box-sizing","-webkit-box-sizing","box-sizing"];return this.each(function(){function e(){for(var n=0;n<t.length;n++)r.css(t[n],i.css(t[n]))}function f(){var n=i.val().replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/&/g,"&amp;").replace(/\n/g,"<br/>");r.html(n+"&nbsp;").css({width:parseInt(i.width(),10)+"px"});c()}function c(){var t=r.height(),f="hidden",n=l?t+u+a:t+u;n>h?(n=h,f="auto"):n<s&&(n=s);i.height()!==n&&i.css({overflow:f,height:n+"px"})}var i,r;if(this.type!=="textarea")return!1;i=n(this).css({resize:"none",overflow:"hidden"});r=n("<div><\/div>").css({position:"absolute",display:"none","word-wrap":"break-word","white-space":"pre-wrap","border-style":"solid"}).appendTo(document.body);e();var l=i.css("box-sizing")=="border-box"||i.css("-moz-box-sizing")=="border-box"||i.css("-webkit-box-sizing")=="border-box",a=parseInt(i.css("border-top-width"))+parseInt(i.css("padding-top"))+parseInt(i.css("padding-bottom"))+parseInt(i.css("border-bottom-width")),o=parseInt(i.css("height"),10),u=parseInt(i.css("line-height"),10)||parseInt(i.css("font-size"),10),s=u*2>o?u*2:o,h=parseInt(i.css("max-height"),10)>-1?parseInt(i.css("max-height"),10):Number.MAX_VALUE;i.bind("keyup change cut paste",function(){f()});n(window).bind("resize",function(){r.width()!==parseInt(i.width(),10)&&f()});i.bind("blur",function(){c()});i.bind("updateHeight",function(){e();f()});n(function(){f()})})}};n.fn.flexible=function(i){if(t[i])return t[i].apply(this,Array.prototype.slice.call(arguments,1));if(typeof i!="object"&&i)n.error("Method "+i+" does not exist on jQuery.flexible");else return t.init.apply(this,arguments)}})(jQuery);

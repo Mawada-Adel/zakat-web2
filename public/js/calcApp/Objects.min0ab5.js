@@ -1,0 +1,1 @@
+function Language(n,t){this.lang=n;this.code=t}
