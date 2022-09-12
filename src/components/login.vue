@@ -49,7 +49,8 @@ export default {
           .then(response => {
             console.log(response);
             if (response.data.status == 'success') {
-              this.$router.push('/home');
+              this.$router.push('/');
+              localStorage.setItem('isloggedIn' , true);
             }
           })
     }

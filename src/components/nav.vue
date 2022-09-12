@@ -5,8 +5,8 @@
       <div class="container">
         <div class="push-RightLeft toplinkWidth">
           <ul class="toplinks">
-            <li>
-               <span class="glyphicon glyphicon-log-in" @click="logout()">logout</span>
+            <li @click="logout()">
+               <span class="glyphicon glyphicon-log-in" >logout</span>
               
             </li>
             <li class="sep">|</li>
@@ -42,11 +42,13 @@
             <div class="clearfix"></div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><router-link to="/">الرئيسية</router-link></li>
-                <li><router-link to="/d-Servises">خدمات المزكين</router-link></li>
-                <li><router-link to="/services">خدمات المستحقين</router-link></li>
-                <li><router-link to="/employee">خدمات المسؤولين</router-link></li>
-                <li><router-link to="/e-Pays">إحصائيات</router-link></li>
+                <li><router-link to="/login">تسجيل الدخول</router-link></li>
+            
+                <li v-show="isloggedIn == 'true'"><router-link to="/">الرئيسية</router-link></li>
+                <li v-show="isloggedIn == 'true'"><router-link to="/d-Servises">خدمات المزكين</router-link></li>
+                <li v-show="isloggedIn == 'true'"><router-link to="/services">خدمات المستحقين</router-link></li>
+                <li v-show="isloggedIn == 'true'"><router-link to="/employee">خدمات المسؤولين</router-link></li>
+                <li v-show="isloggedIn == 'true'"><router-link to="/e-Pays">إحصائيات</router-link></li>
                 
               </ul>
             </div>
@@ -69,11 +71,28 @@
 <script>
 export default {
   name: "nav-com" , 
+  data() {
+    return {
+      isloggedIn : false
+    }
+  },
   methods : {
     logout() {
-      this.$router.push('/');
+      this.$router.go(this.$router.currentRoute)
+      this.isloggedIn = localStorage.setItem('isloggedIn' , false);
     }
-  }
+  } ,
+  created() {
+    this.isloggedIn = localStorage.getItem('isloggedIn');
+  } ,
+  watch: {
+        '$route' : function (from , to) {
+          console.log('from to ' , from , to);
+          console.log('emp : ' , this.$route.params.emp)
+          this.isloggedIn = localStorage.getItem('isloggedIn');
+          this.$router.go(this.$router.currentRoute)
+        }
+      },
 }
 </script>
 

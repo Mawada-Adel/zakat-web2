@@ -15,7 +15,7 @@ import addedBy from "@/components/added-by";
 
 const routes = [
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: homePage
   },
@@ -58,7 +58,7 @@ const routes = [
     component: AllDeservers
   },
   {
-    path  : '/' ,
+    path  : '/login' ,
     name: 'login',
     component: login
   },
