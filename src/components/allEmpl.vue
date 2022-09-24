@@ -44,6 +44,7 @@ export default {
   },
   methods : {
     fetchAddedBy(id , name) {
+        console.log('id name ' , id , name)
      this.$router.push({name : 'addedBy' , params : {id : id , name : name}});
     },
     fetchemployees() {

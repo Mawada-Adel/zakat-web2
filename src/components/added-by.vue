@@ -48,6 +48,7 @@
     },
     },
     created() {
+      console.log('param id : ' , this.$route.params.id)
       this.fetchAddedBy();
     }
   }
